@@ -7,11 +7,12 @@ import {
   StyleSheet,
 } from "react-native";
 import GPTreply from "./ai";
+import FlatListBasics from "./lista_cumparaturi";
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <GPTreply />
+      <FlatListBasics></FlatListBasics>
     </SafeAreaView>
   );
 };
