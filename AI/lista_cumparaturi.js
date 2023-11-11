@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   tableRow: {
-    flexDirection: 'row', // Make sure rows are in a row, not column
+    flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
