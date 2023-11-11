@@ -1,54 +1,57 @@
 {
- "FR TOAST CLASIC 600G": [
-  1.0,
-  8.4
- ],
- "ORBIT SPEARMINT M-BO": [
-  1.0,
-  14.5
- ],
- "LAPTE SEMIDEGR.1.5%": [
-  1.0,
-  10.32
- ],
- "SACOSA MAIEU MARE BI": [
-  1.0,
-  1.49
- ],
- "SANA 330G NAPOLACT": [
-  1.0,
-  3.99
- ],
- "CHEFIR 3.3% 330G NA": [
-  1.0,
-  3.99
- ],
- "MARGEL BRANZ4.4%180G": [
-  2.0,
-  5.69
- ],
- "HUMUS ARDEI COPTI250": [
-  1.0,
-  9.99
- ],
- "TOORTITZI SUSAN ALB&": [
-  1.0,
-  5.75
- ],
- "BISC AR CIOCO ALUNE": [
-  1.0,
-  6.79
- ],
- "TOORTITZI MIXSEM80G": [
-  2.0,
-  3.19
- ],
- "NESCAFE 3IN1 STRONG": [
-  2.0,
-  0.79
- ],
- "NESCAFE BRASERO 1.8G": [
-  3.0,
-  0.37
- ]
+ "timestamp": "2023-11-11",
+ "receit": {
+  "FR TOAST CLASIC 600G": [
+   1.0,
+   8.4
+  ],
+  "ORBIT SPEARMINT M-BO": [
+   1.0,
+   14.5
+  ],
+  "LAPTE SEMIDEGR.1.5%": [
+   1.0,
+   10.32
+  ],
+  "SACOSA MAIEU MARE BI": [
+   1.0,
+   1.49
+  ],
+  "SANA 330G NAPOLACT": [
+   1.0,
+   3.99
+  ],
+  "CHEFIR 3.3% 330G NA": [
+   1.0,
+   3.99
+  ],
+  "MARGEL BRANZ4.4%180G": [
+   2.0,
+   5.69
+  ],
+  "HUMUS ARDEI COPTI250": [
+   1.0,
+   9.99
+  ],
+  "TOORTITZI SUSAN ALB&": [
+   1.0,
+   5.75
+  ],
+  "BISC AR CIOCO ALUNE": [
+   1.0,
+   6.79
+  ],
+  "TOORTITZI MIXSEM80G": [
+   2.0,
+   3.19
+  ],
+  "NESCAFE 3IN1 STRONG": [
+   2.0,
+   0.79
+  ],
+  "NESCAFE BRASERO 1.8G": [
+   3.0,
+   0.37
+  ]
+ }
 }
