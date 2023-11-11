@@ -1,126 +1,123 @@
-// ImagePickerPage.js
+import React, { useState } from "react"; 
+import { View, Text, Image, TouchableOpacity,  
+    StyleSheet, Alert } from "react-native"; 
+import * as ImagePicker from "expo-image-picker"; 
+  
+export default function ImageUpload() { 
+  
+    // Stores the selected image URI 
+    const [file, setFile] = useState(null); 
+  
+    // Stores any error message 
+    const [error, setError] = useState(null); 
+  
+    // Function to pick an image from  
+    //the device's media library 
+    const pickImage = async () => { 
+        const { status } = await ImagePicker. 
+            requestMediaLibraryPermissionsAsync(); 
+  
+        if (status !== "granted") { 
+  
+            // If permission is denied, show an alert 
+            Alert.alert( 
+                "Permission Denied", 
+                `Sorry, we need camera  
+                 roll permission to upload images.` 
+            ); 
+        } else { 
+  
+            // Launch the image library and get 
+            // the selected image 
+            const result = 
+                await ImagePicker.launchImageLibraryAsync(); 
+  
+            if (!result.cancelled) { 
+  
+                // If an image is selected (not cancelled),  
+                // update the file state variable 
+                setFile(result.uri); 
+  
+                // Clear any previous errors 
+                setError(null); 
+            } 
+        } 
+    }; 
+  
+    return ( 
+        <View style={styles.container}> 
+            <Text style={styles.header}> 
+                Add Image: 
+            </Text> 
+  
+            {/* Button to choose an image */} 
+            <TouchableOpacity style={styles.button} 
+                onPress={pickImage}> 
+                <Text style={styles.buttonText}> 
+                    Choose Image 
+                </Text> 
+            </TouchableOpacity> 
+  
+            {/* Conditionally render the image  
+            or error message */} 
+            {file ? ( 
+                // Display the selected image 
+                <View style={styles.imageContainer}> 
+                    <Image source={{ uri: file }} 
+                        style={styles.image} /> 
+                </View> 
+            ) : ( 
+                // Display an error message if there's  
+                // an error or no image selected 
+                <Text style={styles.errorText}>{error}</Text> 
+            )} 
+        </View> 
+    ); 
+} 
 
-import React, { useState, useEffect } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    Image,
-    StyleSheet,
-    Alert,
-} from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
-import Permissions from 'react-native-permissions';
-
-const PickerPage = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    useEffect(() => {
-        checkCameraPermission();
-    }, []);
-
-    const checkCameraPermission = async () => {
-        const permissionStatus = await Permissions.check('photo');
-
-        if (permissionStatus === 'denied') {
-            requestCameraPermission();
-        }
-    };
-
-    const requestCameraPermission = async () => {
-        const permissionStatus = await Permissions.request('photo');
-
-        if (permissionStatus === 'denied') {
-            Alert.alert(
-                'Permission Denied',
-                'Please grant camera access to pick images.'
-            );
-        }
-    };
-
-    const handleImagePicker = async () => {
-        try {
-            const permissionStatus = await Permissions.check('photo');
-
-            if (permissionStatus === 'authorized') {
-                const image = await ImagePicker.openPicker({
-                    width: 300,
-                    height: 400,
-                    cropping: true,
-                    compressImageQuality: 0.8,
-                    includeBase64: true,
-                });
-
-                setSelectedImage({
-                    uri: image.path,
-                    base64: image.data,
-                });
-            } else {
-                Alert.alert(
-                    'Permission Denied',
-                    'Please grant camera access to pick images.'
-                );
-            }
-        } catch (error) {
-            console.log('ImagePicker Error: ', error);
-            Alert.alert('Error', 'Failed to pick an image. Please try again.');
-        }
-    };
-
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={handleImagePicker}>
-                <Text style={styles.buttonText}>Choose Image</Text>
-            </TouchableOpacity>
-
-            {selectedImage && (
-                <View style={styles.imageContainer}>
-                    <Image source={{ uri: selectedImage.uri }} style={styles.image} />
-                </View>
-            )}
-
-            <Text style={styles.instructionText}>
-                Tap the button to pick an image from your gallery.
-            </Text>
-        </View>
-    );
-};
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f4f4f4',
-    },
-    button: {
-        backgroundColor: '#3498db',
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-        borderRadius: 10,
-        marginBottom: 20,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    imageContainer: {
-        marginTop: 20,
-        borderRadius: 10,
-        overflow: 'hidden',
-    },
-    image: {
-        width: 300,
-        height: 400,
-        borderRadius: 10,
-    },
-    instructionText: {
-        marginTop: 20,
-        color: '#666',
-        fontSize: 16,
-        textAlign: 'center',
-    },
+const styles = StyleSheet.create({ 
+    container: { 
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        padding: 16, 
+    }, 
+    header: { 
+        fontSize: 20, 
+        marginBottom: 16, 
+    }, 
+    button: { 
+        backgroundColor: "#007AFF", 
+        padding: 10, 
+        borderRadius: 8, 
+        marginBottom: 16, 
+        shadowColor: "#000000", 
+        shadowOffset: { width: 0, height: 2 }, 
+        shadowOpacity: 0.4, 
+        shadowRadius: 4, 
+        elevation: 5, 
+    }, 
+    buttonText: { 
+        color: "#FFFFFF", 
+        fontSize: 16, 
+        fontWeight: "bold", 
+    }, 
+    imageContainer: { 
+        borderRadius: 8, 
+        marginBottom: 16, 
+        shadowColor: "#000000", 
+        shadowOffset: { width: 0, height: 2 }, 
+        shadowOpacity: 0.4, 
+        shadowRadius: 4, 
+        elevation: 5, 
+    }, 
+    image: { 
+        width: 200, 
+        height: 200, 
+        borderRadius: 8, 
+    }, 
+    errorText: { 
+        color: "red", 
+        marginTop: 16, 
+    }, 
 });
-
-export default PickerPage;
