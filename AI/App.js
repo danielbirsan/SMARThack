@@ -1,4 +1,14 @@
 import React, { useState } from "react";
+import WelcomePage from "./components/firstpage";
+import { StatusBar } from 'expo-status-bar';
+import { useNavigation } from '@react-navigation/native';
+import PickerPage from "./components/picker";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+
 import {
   SafeAreaView,
   TextInput,
@@ -11,9 +21,16 @@ import FlatListBasics from "./lista_cumparaturi";
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatListBasics></FlatListBasics>
-    </SafeAreaView>
+
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Fintech">
+        <Stack.Screen name="Fintech" component={WelcomePage} />
+        <Stack.Screen name="PickerPage" component={PickerPage} />
+         <Stack.Screen name="FlatListBasics" component={FlatListBasics} />
+          
+      </Stack.Navigator>
+    </NavigationContainer>
+
   );
 };
 
