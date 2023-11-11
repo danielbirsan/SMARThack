@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import PickerPage from './picker';
+import ImageUpload from './picker';
 import GPTreply from './ai';
 import FlatListBasics from './lista_cumparaturi';
 const WelcomePage = ({ navigation }) => {
     const handleGetStarted = () => {
-        navigation.navigate('PickerPage');
+        navigation.navigate('ImageUpload');
     };
     const handleGet = () => {
         navigation.navigate('FlatListBasics');
