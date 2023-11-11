@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import OpenAI from "openai";
 import "react-native-url-polyfill/auto";
 
-const GPTreply = () => {
+const GPTreply = (responseJSON) => {
   const [response, setResponse] = useState(null);
 
   useEffect(() => {
@@ -18,11 +18,7 @@ const GPTreply = () => {
           prompt:
             "Transform the following JSON:\n" +
             JSON.stringify({
-              products: [
-                { product_name: "Lapte Napolact 1.5L" },
-                { product_name: "Napolitane Alfers" },
-                { product_name: "Apa 5L" },
-              ],
+              products: responseJSON["receipt"],
             }) +
             "\ninto a new json with the fields: “product_name_trimed” which excludes the quantity, “category” like vegetables, fruits, meat, alcohol, snacks and others, “health_id”, which ranges from 1 (bad for health) to 5 (good), “quantity”",
           temperature: 0.8,
