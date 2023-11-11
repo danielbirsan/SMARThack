@@ -10,7 +10,7 @@ const GPTreply = () => {
     const fetchOpenAIResponse = async () => {
       try {
         const openai = new OpenAI({
-          apiKey: "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",
+          apiKey: "",
         });
 
         const apiResponse = await openai.completions.create({
