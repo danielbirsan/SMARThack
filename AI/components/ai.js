@@ -59,7 +59,6 @@ const GPTreply = () => {
   }
 };*/
 
-export default GPTreply;
 
 const styles = StyleSheet.create({
   container: {

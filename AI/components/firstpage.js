@@ -3,9 +3,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PickerPage from './picker';
+import GPTreply from './ai';
+import FlatListBasics from './lista_cumparaturi';
 const WelcomePage = ({ navigation }) => {
     const handleGetStarted = () => {
         navigation.navigate('PickerPage');
+    };
+    const handleGet = () => {
+        navigation.navigate('FlatListBasics');
     };
 
     return (
@@ -15,6 +20,9 @@ const WelcomePage = ({ navigation }) => {
 
             <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStarted}>
                 <Text style={styles.buttonText}>Incepe acum</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={handleGet}>
+                <Text style={styles.buttonText}>AI</Text>
             </TouchableOpacity>
         </View>
     );
@@ -29,6 +37,7 @@ const styles = StyleSheet.create({
 
     },
     container: {
+
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -46,6 +55,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     buttonContainer: {
+        marginTop: 20,
         backgroundColor: '#3498db',
         borderRadius: 5,
     },

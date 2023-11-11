@@ -16,8 +16,8 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import GPTreply from "./ai";
-import FlatListBasics from "./lista_cumparaturi";
+import GPTreply from "./components/ai";
+import FlatListBasics from "./components/lista_cumparaturi";
 
 const App = () => {
   return (
@@ -26,8 +26,8 @@ const App = () => {
       <Stack.Navigator initialRouteName="Fintech">
         <Stack.Screen name="Fintech" component={WelcomePage} />
         <Stack.Screen name="PickerPage" component={PickerPage} />
-         <Stack.Screen name="FlatListBasics" component={FlatListBasics} />
-          
+        <Stack.Screen name="FlatListBasics" component={FlatListBasics} />
+
       </Stack.Navigator>
     </NavigationContainer>
 
