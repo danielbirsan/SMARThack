@@ -20,7 +20,7 @@ const GPTreply = (responseJSON) => {
             JSON.stringify({
               products: responseJSON["receipt"],
             }) +
-            "\ninto a new json with the fields: “product_name_trimed” which excludes the quantity, “category” like vegetables, fruits, meat, alcohol, snacks and others, “health_id”, which ranges from 1 (bad for health) to 5 (good), “quantity”",
+            "\ninto a new json with the fields: “product_name_trimed” which excludes the quantity, “category” like vegetables, fruits, meat, alcohol, snacks and others, “health_id”, which ranges from 1 (bad for health) to 5 (good), “price”, “date”",
           temperature: 0.8,
           max_tokens: 512,
         });
