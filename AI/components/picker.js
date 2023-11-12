@@ -26,7 +26,7 @@ export default function ImageUpload() {
 
     const sendImageToServer = async (imageUri) => {
         try {
-            const apiUrl = "https://ab97-81-196-9-50.ngrok.io/image"; // Replace with your server endpoint
+            const apiUrl = "https://b5a9-81-196-9-50.ngrok.io/image"; // Replace with your server endpoint
 
             const formData = new FormData();
             formData.append("photo", {
@@ -40,9 +40,13 @@ export default function ImageUpload() {
                 body: formData
             });
 
+            data = await response.json()
+
             if (response.ok) {
                 // Handle the success response from the server
                 console.log("Image uploaded successfully!");
+                console.log(data);
+                return data;
             } else {
                 // Handle server error or other issues
                 console.error("Failed to upload image to the server.");

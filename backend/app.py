@@ -4,6 +4,7 @@ import base64
 from flask_cors import CORS, cross_origin
 import os
 import sys
+import json
 from extract_data import getJSONReceit
 
 app = Flask(__name__)
@@ -13,17 +14,6 @@ cors = CORS(app)
 @app.route("/image", methods=['GET', 'POST'])
 def image():
     if (request.method == "POST"):
-        # bytesOfImage = request.get_data()
-        # file = './image/image.jpg'
-        # # file = './image/example.jpg'
-        # with open(file, 'wb') as out:
-        #     out.write(bytesOfImage)
-        # print("Image received", file)
-        # res = getJSONReceit(file)
-
-        # if 'photo' not in request.files:
-        # return jsonify({'error': 'No photo provided'}), 400
-
         photo = request.files['photo']
 
         if photo.filename == '':
@@ -35,5 +25,7 @@ def image():
         print("Image received", path)
         photo.save(path)
         res = getJSONReceit(path)
+
+        print(res)
 
         return jsonify(res), 200
