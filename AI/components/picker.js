@@ -82,7 +82,18 @@ export default function ImageUpload() {
       <Dialog
         isVisible={isDialogVisible}
         onClose={closeDialog}
-        jsondata={GPTreply(sendImageToServer(response_global)).getData()}
+        jsondata={
+          GPTreply(sendImageToServer(response_global)).getData() || {
+            products: [
+              {
+                product_name_trimmed: "Loading...",
+                category: "Loading...",
+                health_id: "Loading...",
+                quantity: "Loading...",
+              },
+            ],
+          }
+        }
       />
       <Text style={styles.header}>Add Image:</Text>
 
