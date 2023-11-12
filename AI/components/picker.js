@@ -45,9 +45,6 @@ export default function ImageUpload() {
     openDialog();
   };
 
-  const response_global = null;
-  const GPTloaded = false;
-
   const sendImageToServer = async (imageUri) => {
     try {
       const apiUrl = "https://ab97-81-196-9-50.ngrok.io/image"; // Replace with your server endpoint
@@ -68,7 +65,6 @@ export default function ImageUpload() {
         // Handle the success response from the server
         console.log("Image uploaded successfully!");
         response_global = response;
-        GPTloaded = true;
       } else {
         // Handle server error or other issues
         console.error("Failed to upload image to the server.");
@@ -79,14 +75,25 @@ export default function ImageUpload() {
     }
   };
 
+  const response_global = null;
+  const isGPTloaded = false;
+  const GPTloaded = async () => {
+    const response = await GPTreply(
+      sendImageToServer(response_global)
+    ).getData();
+    const data = await response.json();
+    isGPTloaded = true;
+    return data;
+  };
+
   return (
     <View style={styles.container}>
-      {GPTloaded.length && (
+      {GPTloaded && (
         <Dialog
           isVisible={isDialogVisible}
           onClose={closeDialog}
           jsondata={
-            GPTreply(sendImageToServer(response_global)).getData() || {
+            GPTloaded || {
               products: [
                 {
                   product_name_trimmed: "Loading...",

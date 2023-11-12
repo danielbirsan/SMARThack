@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useStat, useEffect } from "react";
 import {
   View,
   Text,
@@ -29,7 +29,7 @@ const Dialog = ({ isVisible, onClose, jsondata }) => {
     };
   }, [isVisible, onClose, jsondata]);
 
-  //const productList = jsonData.products;
+  const productList = jsondata.products;
 
   const renderItem = ({ item }) => (
     <View style={styles.tableRow}>
