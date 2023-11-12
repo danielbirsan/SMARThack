@@ -82,7 +82,7 @@ export default function ImageUpload() {
       <Dialog
         isVisible={isDialogVisible}
         onClose={closeDialog}
-        jsondata={}//GPTreply(sendImageToServer(response_global)).getData()}
+        jsondata={GPTreply(sendImageToServer(response_global)).getData()}
       />
       <Text style={styles.header}>Add Image:</Text>
 

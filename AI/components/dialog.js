@@ -2,172 +2,95 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
+  FlatList,
   StyleSheet,
-  Alert,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import Dialog from "../components/dialog";
-import GPTreply, { getData } from "../components/ai";
+import Modal from "react-native-modal";
 
-export default function ImageUpload() {
-  const [isDialogVisible, setDialogVisible] = useState(false);
-
-  const openDialog = () => {
-    setDialogVisible(true);
-  };
-
-  const closeDialog = () => {
-    setDialogVisible(false);
-  };
-
-  const [file, setFile] = useState(null);
-
-  const pickImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      });
-
-      if (!result.canceled) {
-        setFile(result.assets[0].uri);
-
-        // Send the selected image to the server
-        console.log(result.log);
-        sendImageToServer(result.assets[0].uri);
+const Dialog = ({ isVisible, onClose, jsondata }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await jsondata;
+        // Handle the data as needed
+        console.log(data);
+      } catch (error) {
+        // Handle errors if necessary
+        console.error(error);
       }
-    } catch (error) {
-      console.error("Error:", error);
-      Alert.alert("Error", "Failed to pick an image.");
-    }
+    };
 
-    openDialog();
-  };
+    fetchData();
 
-  const response_global = null;
+    // Cleanup function if needed
+    return () => {
+      // Cleanup logic here
+    };
+  }, [isVisible, onClose, jsondata]);
 
-  const sendImageToServer = async (imageUri) => {
-    try {
-      const apiUrl = "https://ab97-81-196-9-50.ngrok.io/image"; // Replace with your server endpoint
+  //const productList = jsonData.products;
 
-      const formData = new FormData();
-      formData.append("photo", {
-        uri: imageUri,
-        type: "image/jpeg",
-        name: "photo.jpg",
-      });
-
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        // Handle the success response from the server
-        console.log("Image uploaded successfully!");
-        response_global = response;
-      } else {
-        // Handle server error or other issues
-        console.error("Failed to upload image to the server.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      Alert.alert("Error", "Failed to send image to the server.");
-    }
-  };
-
-  return (
-    <View style={styles.container}>
-      <Dialog
-        isVisible={isDialogVisible}
-        onClose={closeDialog}
-        jsondata={}//GPTreply(sendImageToServer(response_global)).getData()}
-      />
-      <Text style={styles.header}>Add Image:</Text>
-
-      {/* Button to choose image */}
-      <TouchableOpacity style={styles.button} onPress={pickImage}>
-        <Text style={styles.buttonText}>Choose Image</Text>
-      </TouchableOpacity>
-
-      {/* Conditionally render the image or error message */}
-      {file ? (
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: file }} style={styles.image} />
-        </View>
-      ) : (
-        <Text style={styles.errorText}></Text>
-      )}
+  const renderItem = ({ item }) => (
+    <View style={styles.tableRow}>
+      <Text style={styles.tableCell}>{item.product_name_trimmed}</Text>
+      <Text style={styles.tableCell}>{item.category}</Text>
+      <Text style={styles.tableCell}>{item.health_id}</Text>
+      <Text style={styles.tableCell}>{item.quantity}</Text>
     </View>
   );
-}
+  return (
+    <Modal isVisible={isVisible}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+        >
+          <View style={styles.container}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <Text style={styles.tableHeaderText}>Product</Text>
+              <Text style={styles.tableHeaderText}>Category</Text>
+              <Text style={styles.tableHeaderText}>Health ID</Text>
+              <Text style={styles.tableHeaderText}>Quantity</Text>
+            </View>
 
-// return (
-//     <View style={styles.container}>
-//         <Text style={styles.header}>Add Images:</Text>
+            {/* Table Body */}
+            <FlatList
+              data={productList}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.product_name_trimmed}
+            />
+          </View>
 
-//         {/* Button to choose images */}
-//         <TouchableOpacity style={styles.button} onPress={pickImage}>
-//             <Text style={styles.buttonText}>Choose Images</Text>
-//         </TouchableOpacity>
+          <TouchableOpacity onPress={onClose}>
+            <Text style={{ color: "blue", marginTop: 10 }}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
+};
 
-//         {/* Conditionally render the images or error message */}
-//         {files.length > 0 ? (
-//             <View style={styles.imageContainer}>
-//                 {files.map((file, index) => (
-//                     <Image key={index} source={{ uri: file.uri }} style={styles.image} />
-//                 ))}
-//             </View>
-//         ) : (
-//             <Text style={styles.errorText}></Text>
-//         )}
-//     </View>
-// );
-// }
+export default Dialog;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     padding: 16,
   },
-  header: {
-    fontSize: 20,
-    marginBottom: 16,
-  },
-  button: {
-    backgroundColor: "#007AFF",
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 16,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  imageContainer: {
+  tableRow: {
     flexDirection: "row",
-
-    justifyContent: "center",
-    marginBottom: 16,
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    paddingVertical: 8,
   },
-  image: {
-    width: 100,
-    height: 200,
-    resizeMode: "contain",
-    borderRadius: 8,
-    margin: 8,
+  tableHeaderText: {
+    fontWeight: "bold",
+    flex: 1,
+    textAlign: "center",
   },
-  errorText: {
-    color: "red",
-    marginTop: 16,
+  tableCell: {
+    flex: 1,
+    textAlign: "center",
   },
 });
