@@ -15,7 +15,8 @@ const WelcomePage = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Sanatate</Text>
+
+            <Text style={styles.title}>BonScan</Text>
             <Text style={styles.message}>Incarca bonurile!</Text>
 
             <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStarted}>
@@ -29,7 +30,7 @@ const WelcomePage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
- 
+
 
     body:
     {

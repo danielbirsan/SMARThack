@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import WelcomePage from "./components/firstpage";
-import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import ImageUpload from "./components/picker";
 import { NavigationContainer } from '@react-navigation/native';
@@ -24,7 +23,7 @@ const App = () => {
 
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Fintech">
-        <Stack.Screen name="Fintech" component={WelcomePage} />
+        <Stack.Screen name="BonScan" component={WelcomePage} />
         <Stack.Screen name="ImageUpload" component={ImageUpload} />
         <Stack.Screen name="FlatListBasics" component={FlatListBasics} />
 
