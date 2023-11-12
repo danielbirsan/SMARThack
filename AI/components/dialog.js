@@ -75,6 +75,7 @@ export default Dialog;
 
 const styles = StyleSheet.create({
   container: {
+    display: "none",
     padding: 16,
   },
   tableRow: {
