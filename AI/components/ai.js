@@ -20,12 +20,17 @@ const GPTreply = (responseJSON) => {
             JSON.stringify({
               products: responseJSON["receipt"],
             }) +
-            "\ninto a new json with the fields: “product_name_trimed” which excludes the quantity, “category” like vegetables, fruits, meat, alcohol, snacks and others, “health_id”, which ranges from 1 (bad for health) to 5 (good), “price”, “date”",
+            "\ninto a new json with the fields: “product_name_trimed” which excludes the quantity, “category” like vegetables, fruits, meat, alcohol, snacks and others, “health_id”, which ranges from 1 (bad for health) to 5 (good), “quantity”",
           temperature: 0.8,
           max_tokens: 512,
         });
 
         setResponse(apiResponse.choices[0]);
+        const getData = () => {
+          return {
+            response,
+          };
+        };
       } catch (error) {
         console.error("Error fetching data from OpenAI:", error);
       }
@@ -43,6 +48,8 @@ const GPTreply = (responseJSON) => {
   );
 };
 
+export { GPTreply as default };
+
 /*console.log("Data:", response);
   try {
     return (
@@ -54,7 +61,6 @@ const GPTreply = (responseJSON) => {
     console.error("Error:", response);
   }
 };*/
-
 
 const styles = StyleSheet.create({
   container: {
