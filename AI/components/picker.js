@@ -46,6 +46,7 @@ export default function ImageUpload() {
   };
 
   const response_global = null;
+  const GPTloaded = false;
 
   const sendImageToServer = async (imageUri) => {
     try {
@@ -67,6 +68,7 @@ export default function ImageUpload() {
         // Handle the success response from the server
         console.log("Image uploaded successfully!");
         response_global = response;
+        GPTloaded = true;
       } else {
         // Handle server error or other issues
         console.error("Failed to upload image to the server.");
@@ -79,22 +81,24 @@ export default function ImageUpload() {
 
   return (
     <View style={styles.container}>
-      <Dialog
-        isVisible={isDialogVisible}
-        onClose={closeDialog}
-        jsondata={
-          GPTreply(sendImageToServer(response_global)).getData() || {
-            products: [
-              {
-                product_name_trimmed: "Loading...",
-                category: "Loading...",
-                health_id: "Loading...",
-                quantity: "Loading...",
-              },
-            ],
+      {GPTloaded.length && (
+        <Dialog
+          isVisible={isDialogVisible}
+          onClose={closeDialog}
+          jsondata={
+            GPTreply(sendImageToServer(response_global)).getData() || {
+              products: [
+                {
+                  product_name_trimmed: "Loading...",
+                  category: "Loading...",
+                  health_id: "Loading...",
+                  price: "Loading...",
+                },
+              ],
+            }
           }
-        }
-      />
+        />
+      )}
       <Text style={styles.header}>Add Image:</Text>
 
       {/* Button to choose image */}
