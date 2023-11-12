@@ -29,7 +29,7 @@ const WelcomePage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-
+ 
 
     body:
     {
